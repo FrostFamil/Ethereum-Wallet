@@ -233,6 +233,27 @@ extension TokensCoordinator: SelectAssetCoordinatorDelegate {
     }
 }
 
+extension TokensCoordinator: ScannedTokenCoordinatorDelegate {
+
+    func coordinator(_ coordinator: ScannedTokenCoordinator, didSelectToken token: TokenObject) {
+        removeCoordinator(coordinator)
+
+        switch sendToAddressState {
+        case .pending(let address):
+            let paymentFlow = PaymentFlow.send(type: .init(token: token, recipient: .address(address), amount: nil))
+
+            delegate?.didPress(for: paymentFlow, server: token.server, in: self)
+        case .none:
+            break
+        }
+    }
+
+    func selectAssetDidCancel(in coordinator: ScannedTokenCoordinator) {
+        removeCoordinator(coordinator)
+    }
+}
+
+
 extension TokensCoordinator: QRCodeResolutionCoordinatorDelegate {
 
     func didCancel(in coordinator: QRCodeResolutionCoordinator) {
@@ -316,11 +337,18 @@ extension TokensCoordinator: QRCodeResolutionCoordinatorDelegate {
     }
 
     func coordinator(_ coordinator: QRCodeResolutionCoordinator, didResolveWalletConnectURL url: WCURL) {
-        removeCoordinator(coordinator)
+        //removeCoordinator(coordinator)
+        let coordinator = ScannedTokenCoordinator(
+            navigationController: navigationController
+        )
+        coordinator.delegate = self
+        addCoordinator(coordinator)
+
+        coordinator.start()
     }
 
     func coordinator(_ coordinator: QRCodeResolutionCoordinator, didResolveString value: String) {
-        removeCoordinator(coordinator)
+        //removeCoordinator(coordinator)
     }
 }
 

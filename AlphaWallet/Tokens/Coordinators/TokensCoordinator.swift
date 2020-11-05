@@ -253,7 +253,6 @@ extension TokensCoordinator: ScannedTokenCoordinatorDelegate {
     }
 }
 
-
 extension TokensCoordinator: QRCodeResolutionCoordinatorDelegate {
 
     func didCancel(in coordinator: QRCodeResolutionCoordinator) {

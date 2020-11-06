@@ -50,9 +50,20 @@ class ScannedTokenViewController: UIViewController, UITextFieldDelegate {
         delegate?.controller(self, didCancelSelected: sender)
     }
     
+    func labelRender(labelText: String, yCoordinate: Int) {
+        let label = UILabel(frame: CGRect(x: 20, y: yCoordinate, width: 230, height: 21))
+        label.text = labelText
+        label.textColor = .black
+        label.font = UIFont.boldSystemFont(ofSize: 15)
+        
+        view.addSubview(label)
+    }
+    
     func urlTextField(width: Int) {
         
-        urlTextField =  UITextField(frame: CGRect(x: 20, y: 200, width: width, height: 40))
+        labelRender(labelText: "Url", yCoordinate: 170)
+        urlTextField =  UITextField(frame: CGRect(x: 20, y: 195, width: width, height: 40))
+        
         urlTextField.placeholder = "Enter url here"
         urlTextField.font = UIFont.systemFont(ofSize: 15)
         urlTextField.borderStyle = UITextField.BorderStyle.roundedRect
@@ -67,7 +78,9 @@ class ScannedTokenViewController: UIViewController, UITextFieldDelegate {
     }
     
     func addressTextField(width: Int) {
-        addressTextField =  UITextField(frame: CGRect(x: 20, y: 260, width: width, height: 40))
+        
+        labelRender(labelText: "Address", yCoordinate: 250)
+        addressTextField =  UITextField(frame: CGRect(x: 20, y: 275, width: width, height: 40))
         
         addressTextField.placeholder = "Enter address here"
         addressTextField.font = UIFont.systemFont(ofSize: 15)
@@ -82,7 +95,8 @@ class ScannedTokenViewController: UIViewController, UITextFieldDelegate {
     }
     
     func codeTextField(width: Int) {
-        codeTextField =  UITextField(frame: CGRect(x: 20, y: 320, width: width, height: 40))
+        labelRender(labelText: "Code", yCoordinate: 330)
+        codeTextField =  UITextField(frame: CGRect(x: 20, y: 355, width: width, height: 40))
         
         codeTextField.placeholder = "Enter code here"
         codeTextField.font = UIFont.systemFont(ofSize: 15)
@@ -97,7 +111,7 @@ class ScannedTokenViewController: UIViewController, UITextFieldDelegate {
     }
     
     func connectButtonRender(midX: Int) {
-        connectButton = UIButton(frame: CGRect(x: midX, y: 380, width: 100, height: 50))
+        connectButton = UIButton(frame: CGRect(x: midX, y: 400, width: 100, height: 50))
         connectButton.setTitle("Connect", for: .normal)
         connectButton.setTitleColor(UIColor.blue, for: .normal)
         connectButton.addTarget(self, action: #selector(connectButtonPressed), for: .touchUpInside)
@@ -105,7 +119,7 @@ class ScannedTokenViewController: UIViewController, UITextFieldDelegate {
     }
     
     func approveButtonRender(midX: Int) {
-        approveButton = UIButton(frame: CGRect(x: midX, y: 420, width: 100, height: 50))
+        approveButton = UIButton(frame: CGRect(x: midX, y: 430, width: 100, height: 50))
         approveButton.setTitle("Approve", for: .normal)
         approveButton.setTitleColor(UIColor.lightGray, for: .normal)
         approveButton.addTarget(self, action: #selector(approveButtonPressed), for: .touchUpInside)

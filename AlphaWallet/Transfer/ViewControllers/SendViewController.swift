@@ -53,6 +53,23 @@ class SendViewController: UIViewController, CanScanQRCode {
     var transferType: TransferType {
         return viewModel.transferType
     }
+    
+    var sendAllButton: Button = {
+           let button = Button(size: .normal, style: .borderless)
+           button.translatesAutoresizingMaskIntoConstraints = false
+           button.setTitle("Send All", for: .normal)
+           button.titleLabel?.font = DataEntry.Font.accessory
+           button.setTitleColor(DataEntry.Color.icon, for: .normal)
+           button.setBackgroundColor(.clear, forState: .normal)
+           button.contentHorizontalAlignment = .right
+           button.addTarget(self, action: #selector(sendAllButtonPressed), for: .touchUpInside)
+
+           return button
+    }()
+    
+    @objc func sendAllButtonPressed() {
+        print("send all Pressed")
+    }
 
     let storage: TokensDataStore
 
@@ -113,7 +130,7 @@ class SendViewController: UIViewController, CanScanQRCode {
             .spacer(height: ScreenChecker().isNarrowScreen ? 2 : 4),
             amountTextField,
             .spacer(height: 4),
-            amountTextField.statusLabelContainer,
+            [amountTextField.statusLabelContainer, sendAllButton].asStackView(axis: .horizontal),
             amountTextField.alternativeAmountLabelContainer,
             .spacer(height: ScreenChecker().isNarrowScreen ? 7: 14),
             recipientHeader,
